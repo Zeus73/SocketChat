@@ -105,7 +105,7 @@ public class NioServer {
                             if(!users.get(i).username.equals(username))
                                 usersList.add(users.get(i).username);
                         buf.clear();
-                        ChatMsg retMsg=new ChatMsg(null, ChatMsg.LIST_USERS, chatMsg.Sender, null, null, usersList);
+                        ChatMsg retMsg=new ChatMsg(null, ChatMsg.LIST_USERS, chatMsg.sender, null, null, usersList);
                         buf.wrap(ChatMsg.serialize(retMsg));
                         socketChannel.write(buf);
                     }else if(chatMsg.msgType==ChatMsg.LOGOUT){

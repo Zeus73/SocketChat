@@ -24,21 +24,19 @@ public class ChatReceiveIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i("check1","Hello");
         if (intent != null) {
 
                 try {
-//                    String rec=Client.din.readUTF();
                     ByteBuffer buf=ByteBuffer.allocate(10240);
                     Client.clientSocketChannel.read(buf);
                     ChatMsg chatMsg=ChatMsg.deserialize(buf.array());
-                    if(chatMsg==null)
-                    Log.i("problem","null message");
+                    if(chatMsg!=null){
+                        Intent msgRecBroadcastIntent=new Intent();
+                        msgRecBroadcastIntent.setAction(ChatActivity.MsgReceiver.ACTION_RESP);
+                        msgRecBroadcastIntent.putExtra("msg",chatMsg);
+                        sendOrderedBroadcast(msgRecBroadcastIntent,null);
+                    }
 
-                    Intent msgRecBroadcastIntent=new Intent();
-                    msgRecBroadcastIntent.setAction(ChatActivity.MsgReceiver.ACTION_RESP);
-                    msgRecBroadcastIntent.putExtra("msg",chatMsg);
-                    sendOrderedBroadcast(msgRecBroadcastIntent,null);
 
                 } catch (IOException e) {
 

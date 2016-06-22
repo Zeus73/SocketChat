@@ -12,20 +12,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.activeandroid.query.Select;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.StringTokenizer;
+import java.util.List;
+import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
 
-    Intent sendMsgIntent;
-    ArrayList<String> msgList;
+//    Intent sendMsgIntent;
+    ChatListAdapter chatListAdapter;
+    ArrayList<ChatMsg> chatMsgList;
     ListView msgListView;
-    ArrayAdapter<String> arrayAdapter;
+    TextView recipientNameTV;
+//    ArrayAdapter<String> arrayAdapter;
     Button sendMsgButton;
     EditText msgEditText;
     String recipient;
@@ -57,9 +62,9 @@ public class ChatActivity extends AppCompatActivity {
 
             ChatMsg msgRec= (ChatMsg) intent.getSerializableExtra("msg");
 
-            if(msgRec!=null&&msgRec.Sender.equals(recipient)){
-                msgList.add(msgRec.Sender+": "+msgRec.msgContent);
-                arrayAdapter.notifyDataSetChanged();
+            if(msgRec!=null&&msgRec.sender.equals(recipient)){
+                chatMsgList.add(msgRec);
+                chatListAdapter.notifyDataSetChanged();
             }
 
 
@@ -74,17 +79,27 @@ public class ChatActivity extends AppCompatActivity {
         Intent i=getIntent();
         recipient=i.getStringExtra("recipient");
         Client.currentlyChattingWith=recipient;
-        msgList=new ArrayList<>();
-        boolean pendingMsg=i.getBooleanExtra("isPending",false);
-        if(pendingMsg){
-            String str=i.getStringExtra("pending");
-            msgList.add(recipient+": "+str);
-        }
+        List<ChatMsg> databaseList=  new Select().from(ChatMsg.class)
+                .where("recipient=? or sender=?",recipient,recipient).execute();
+        recipientNameTV= (TextView) findViewById(R.id.chatActivityRecipientNameTV);
+        recipientNameTV.setText("Chat with: "+recipient);
+        chatMsgList=new ArrayList<>();
+        if(databaseList!=null)
+            for(int j=0;j<databaseList.size();++j)
+                chatMsgList.add(databaseList.get(j));
+
+//        boolean pendingMsg=i.getBooleanExtra("isPending",false);
+//        if(pendingMsg){
+//            String str=i.getStringExtra("pending");
+//            msgList.add(recipient+": "+str);
+//        }
         msgEditText= (EditText) findViewById(R.id.msgToBeSentEditText);
         msgListView= (ListView) findViewById(R.id.messagesListView);
-        arrayAdapter=new ArrayAdapter<String>(ChatActivity.this,
-                android.R.layout.simple_list_item_1,msgList);
-        msgListView.setAdapter(arrayAdapter);
+        chatListAdapter=new ChatListAdapter(ChatActivity.this,chatMsgList);
+        msgListView.setAdapter(chatListAdapter);
+//        arrayAdapter=new ArrayAdapter<String>(ChatActivity.this,
+//                android.R.layout.simple_list_item_1,msgList);
+//        msgListView.setAdapter(arrayAdapter);
 
         msgReceiver=new MsgReceiver();
 
@@ -102,16 +117,17 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String msgToBeSent=msgEditText.getText().toString();
-                msgList.add("You: "+msgToBeSent);
-                arrayAdapter.notifyDataSetChanged();
+//                msgList.add("You: "+msgToBeSent);
+//                arrayAdapter.notifyDataSetChanged();
                 msgEditText.setText("");
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
                 ChatMsg msg1=new ChatMsg(date,ChatMsg.CHAT,Client.sender,recipient,msgToBeSent,null);
+                chatMsgList.add(msg1);
+                chatListAdapter.notifyDataSetChanged();
 
-//                msgToBeSent=recipient+" DATA "+Client.sender+": "+msgToBeSent;
                 SendMsgAsyncTask sendMsgAsyncTask=new SendMsgAsyncTask();
                 sendMsgAsyncTask.execute(msg1);
+                msg1.save();
             }
         });
         receiveMsgIntent=new Intent(ChatActivity.this,ChatReceiveIntentService.class);

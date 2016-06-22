@@ -1,7 +1,9 @@
 package com.zeus.socketchat;
 
+import android.content.Context;
 import android.system.Os;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.net.*;
 import java.io.*;
@@ -19,6 +21,8 @@ public class Client implements  Serializable {
     static final int PORT = 7777;
 //    static String IP = "10.0.2.2";
     static String IP = "192.168.0.104";
+//    static String IP = "Phoenix/192.168.0.104";
+
     static String sender;
     static String currentlyChattingWith=null;
 
@@ -77,6 +81,7 @@ public class Client implements  Serializable {
             ret=retMsg.usersList;
         } catch (IOException e) {
             e.printStackTrace();
+            Log.i("problem Fetch UserList","connection reset by peer");
         }
         return ret;
     }
