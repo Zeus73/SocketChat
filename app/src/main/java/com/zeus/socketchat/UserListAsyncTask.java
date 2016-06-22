@@ -27,7 +27,6 @@ public class UserListAsyncTask extends AsyncTask {
     protected Object doInBackground(Object[] params) {
 
         ArrayList<String> usersList=Client.getUsersList();
-
         return usersList;
     }
 }

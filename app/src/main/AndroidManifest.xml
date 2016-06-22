@@ -30,7 +30,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter
-                android:priority="5">
+                android:priority="55">
                 <action android:name="com.zeus.socketchat.intent.action.MESSAGE_PROCESSED"/>
                 <category android:name="Intent.CATEGORY_DEFAULT"/>
             </intent-filter>

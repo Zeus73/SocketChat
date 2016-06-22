@@ -13,17 +13,28 @@ public class NewMsgReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("truth","here");
-        String msgRec=intent.getStringExtra("msg");
-        StringTokenizer st=new StringTokenizer(msgRec);
-        String byWhom=st.nextToken();
-        byWhom=byWhom.substring(0,byWhom.length()-1);
-        Intent i=new Intent(context,ChatActivity.class);
-        i.putExtra("recipient",byWhom);
-        i.putExtra("isPending",true);
-        i.putExtra("pending",msgRec);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
+//        Log.i("truth","here");
+        ChatMsg msgRec= (ChatMsg) intent.getSerializableExtra("msg");
+        if(msgRec!=null){
+//            store in database
+            if(!msgRec.Sender.equals(Client.currentlyChattingWith)){
+                //do notification here
+                setResultData(null);
+                abortBroadcast();
+            }else{
+//                Intent i=new Intent(context,ChatActivity.class);
+//                i.putExtra("recipient",msgRec.Sender);
+//                i.putExtra("isPending",true);
+//                i.putExtra("pending",msgRec.msgContent);
+//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(i);
+            }
+
+        }
+        Intent receiveMsgIntent;
+        receiveMsgIntent=new Intent(context,ChatReceiveIntentService.class);
+        context.startService(receiveMsgIntent);
+
     }
 
 }

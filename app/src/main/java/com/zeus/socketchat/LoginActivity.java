@@ -40,18 +40,18 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
         ConnectivityManager connMgr=(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo=connMgr.getActiveNetworkInfo();
         if(networkInfo!=null&&networkInfo.isConnected()){
-            loginSharedPreferences=getSharedPreferences("login",Context.MODE_PRIVATE);
-            String usernameHistory=loginSharedPreferences.getString("username","");
-            if(!usernameHistory.equals("")){
-                String passwordHistory=loginSharedPreferences.getString("password","");
-                progressDialog = new ProgressDialog(this);
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.setMessage("Signing In ...");
-                progressDialog.show();
-                LoginAsyncTask loginAsyncTask=new LoginAsyncTask();
-                loginAsyncTask.SetLoginAsynctaskListener(LoginActivity.this);
-                loginAsyncTask.execute(usernameHistory,passwordHistory,false);
-            }
+//            loginSharedPreferences=getSharedPreferences("login",Context.MODE_PRIVATE);
+//            String usernameHistory=loginSharedPreferences.getString("username","");
+//            if(!usernameHistory.equals("")){
+//                String passwordHistory=loginSharedPreferences.getString("password","");
+//                progressDialog = new ProgressDialog(this);
+//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                progressDialog.setMessage("Signing In ...");
+//                progressDialog.show();
+//                LoginAsyncTask loginAsyncTask=new LoginAsyncTask();
+//                loginAsyncTask.SetLoginAsynctaskListener(LoginActivity.this);
+//                loginAsyncTask.execute(usernameHistory,passwordHistory,false);
+//            }
             changeServerIpButton= (Button) findViewById(R.id.serverIpChangeButton);
             changeServerIpButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,22 +127,22 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
 
     @Override
     public void onLoginAttempt(int authenticated) {
-        SharedPreferences.Editor editor=loginSharedPreferences.edit();
+//        SharedPreferences.Editor editor=loginSharedPreferences.edit();
         progressDialog.dismiss();
         if(authenticated==0){
             Toast.makeText(LoginActivity.this, "Welcome: "+Client.sender, Toast.LENGTH_SHORT).show();
             Intent showUsersIntent=new Intent();
             showUsersIntent.setClass(LoginActivity.this,UsersListActivity.class);
             
-            editor.putString("username",userNameEditText.getText().toString());
-            editor.putString("password",passwordEditText.getText().toString());
-            editor.commit();
+//            editor.putString("username",userNameEditText.getText().toString());
+//            editor.putString("password",passwordEditText.getText().toString());
+//            editor.commit();
 
             startActivity(showUsersIntent);
         }else{
-            editor.putString("username","");
-            editor.putString("password","");
-            editor.commit();
+//            editor.putString("username","");
+//            editor.putString("password","");
+//            editor.commit();
             passwordEditText.setText("");
             userNameEditText.setText("");
             if(authenticated==1){

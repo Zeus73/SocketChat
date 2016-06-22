@@ -6,6 +6,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousCloseException;
 
 
 /**
@@ -26,13 +28,21 @@ public class ChatReceiveIntentService extends IntentService {
         if (intent != null) {
 
                 try {
-                    String rec=Client.din.readUTF();
+//                    String rec=Client.din.readUTF();
+                    ByteBuffer buf=ByteBuffer.allocate(10240);
+                    Client.clientSocketChannel.read(buf);
+                    ChatMsg chatMsg=ChatMsg.deserialize(buf.array());
+                    if(chatMsg==null)
+                    Log.i("problem","null message");
+
                     Intent msgRecBroadcastIntent=new Intent();
                     msgRecBroadcastIntent.setAction(ChatActivity.MsgReceiver.ACTION_RESP);
-                    msgRecBroadcastIntent.putExtra("msg",rec);
+                    msgRecBroadcastIntent.putExtra("msg",chatMsg);
                     sendOrderedBroadcast(msgRecBroadcastIntent,null);
+
                 } catch (IOException e) {
-                    //do nothing
+
+                    e.printStackTrace();
                 }
             }
         }

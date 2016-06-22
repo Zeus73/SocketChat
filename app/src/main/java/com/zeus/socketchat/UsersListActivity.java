@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UsersListActivity extends AppCompatActivity implements UserListAsyncTask.UserListAsyncTaskInterface {
@@ -26,23 +27,14 @@ public class UsersListActivity extends AppCompatActivity implements UserListAsyn
 
     @Override
     protected void onDestroy() {
-
-        String logoutMsg=Client.sender+" logout";
-        SendMsgAsyncTask logoutAsyncTask=new SendMsgAsyncTask();
-        logoutAsyncTask.execute(logoutMsg);
+        logoutFunction();
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-
-        String logoutMsg=Client.sender+" logout";
-        SendMsgAsyncTask logoutAsyncTask=new SendMsgAsyncTask();
-        logoutAsyncTask.execute(logoutMsg);
-
+        logoutFunction();
         super.onBackPressed();
-
-
     }
 
     @Override
@@ -64,14 +56,7 @@ public class UsersListActivity extends AppCompatActivity implements UserListAsyn
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences loginSharedPreferences=getSharedPreferences("login", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=loginSharedPreferences.edit();
-                editor.putString("username","");
-                editor.putString("password","");
-                editor.commit();
-                String logoutMsg=Client.sender+" logout";
-                SendMsgAsyncTask logoutAsyncTask=new SendMsgAsyncTask();
-                logoutAsyncTask.execute(logoutMsg);
+                logoutFunction();
                 finish();
             }
         });
@@ -108,5 +93,11 @@ public class UsersListActivity extends AppCompatActivity implements UserListAsyn
         }
         adapter.notifyDataSetChanged();
 
+    }
+
+    private void logoutFunction(){
+        ChatMsg msg1=new ChatMsg(null,ChatMsg.LOGOUT,Client.sender,null,null,null);
+        SendMsgAsyncTask logoutAsyncTask=new SendMsgAsyncTask();
+        logoutAsyncTask.execute(msg1);
     }
 }

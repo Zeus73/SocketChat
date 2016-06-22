@@ -13,7 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 public class ChatActivity extends AppCompatActivity {
@@ -34,26 +38,31 @@ public class ChatActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onPause() {
+        Client.currentlyChattingWith=null;
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        Client.currentlyChattingWith=recipient;
+        super.onResume();
+    }
+
     public class MsgReceiver extends BroadcastReceiver{
         public static final String ACTION_RESP="com.zeus.socketchat.intent.action.MESSAGE_PROCESSED";
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String msgRec=intent.getStringExtra("msg");
+            ChatMsg msgRec= (ChatMsg) intent.getSerializableExtra("msg");
 
-            StringTokenizer st=new StringTokenizer(msgRec);
-            String byWhom=st.nextToken();
-            byWhom=byWhom.substring(0,byWhom.length()-1);
-            if(byWhom.equals(recipient)){
-                msgList.add(msgRec);
+            if(msgRec!=null&&msgRec.Sender.equals(recipient)){
+                msgList.add(msgRec.Sender+": "+msgRec.msgContent);
                 arrayAdapter.notifyDataSetChanged();
-                setResultData(null);
-                abortBroadcast();
             }
 
 
-//            receiveMsgIntent=new Intent(ChatActivity.this,ChatReceiveIntentService.class);
-            context.startService(receiveMsgIntent);
         }
     }
 
@@ -64,12 +73,12 @@ public class ChatActivity extends AppCompatActivity {
 
         Intent i=getIntent();
         recipient=i.getStringExtra("recipient");
-
+        Client.currentlyChattingWith=recipient;
         msgList=new ArrayList<>();
         boolean pendingMsg=i.getBooleanExtra("isPending",false);
         if(pendingMsg){
             String str=i.getStringExtra("pending");
-            msgList.add(str);
+            msgList.add(recipient+": "+str);
         }
         msgEditText= (EditText) findViewById(R.id.msgToBeSentEditText);
         msgListView= (ListView) findViewById(R.id.messagesListView);
@@ -96,14 +105,13 @@ public class ChatActivity extends AppCompatActivity {
                 msgList.add("You: "+msgToBeSent);
                 arrayAdapter.notifyDataSetChanged();
                 msgEditText.setText("");
-                msgToBeSent=recipient+" DATA "+Client.sender+": "+msgToBeSent;
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                ChatMsg msg1=new ChatMsg(date,ChatMsg.CHAT,Client.sender,recipient,msgToBeSent,null);
+
+//                msgToBeSent=recipient+" DATA "+Client.sender+": "+msgToBeSent;
                 SendMsgAsyncTask sendMsgAsyncTask=new SendMsgAsyncTask();
-                sendMsgAsyncTask.execute(msgToBeSent);
-//                sendMsgIntent=new Intent(ChatActivity.this,ChatReceiveIntentService.class);
-//                sendMsgIntent.setAction(ChatReceiveIntentService.ACTION_MSG_SEND);
-//                sendMsgIntent.putExtra(ChatReceiveIntentService.EXTRA_MSGTOSEND,msgToBeSent);
-//                startService(sendMsgIntent);
-//                Log.i("initiate","success");
+                sendMsgAsyncTask.execute(msg1);
             }
         });
         receiveMsgIntent=new Intent(ChatActivity.this,ChatReceiveIntentService.class);
