@@ -1,6 +1,4 @@
-package com.zeus.socketchat;
-
-import android.util.Log;
+package com.zeus.socketchat.DataModels;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

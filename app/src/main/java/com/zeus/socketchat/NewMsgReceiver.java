@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.zeus.socketchat.DataModels.ChatMsg;
+
 public class NewMsgReceiver extends BroadcastReceiver {
     public NewMsgReceiver() {
     }
@@ -14,6 +16,7 @@ public class NewMsgReceiver extends BroadcastReceiver {
         ChatMsg msgRec= (ChatMsg) intent.getSerializableExtra("msg");
 
             msgRec.save();
+            Log.i("new msg","+"+msgRec.msgContent);
             if(!msgRec.sender.equals(Client.currentlyChattingWith)){
                 //do notification here
                 setResultData(null);

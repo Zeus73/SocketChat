@@ -1,4 +1,4 @@
-package com.zeus.socketchat;
+package com.zeus.socketchat.DataModels;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -23,7 +23,7 @@ public class ChatMsg extends Model implements Serializable {
     }
 
     public ChatMsg(Date date, int msgType, String sender, String recipient, String msgContent,
-                   ArrayList<String> usersList) {
+                   ArrayList<OtherUsersInfo> usersList) {
         super();
         this.date = date;
         this.msgType = msgType;
@@ -44,7 +44,7 @@ public class ChatMsg extends Model implements Serializable {
     public String msgContent;
 
     public int msgType;
-    public ArrayList<String> usersList;
+    public ArrayList<OtherUsersInfo> usersList;
 
 
 

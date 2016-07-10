@@ -1,6 +1,8 @@
-package com.zeus.socketchat;
+package com.zeus.socketchat.MyAsyncTasks;
 
 import android.os.AsyncTask;
+
+import com.zeus.socketchat.Client;
 
 /**
  * Created by Zeus on 6/4/2016.
@@ -27,7 +29,8 @@ public class LoginAsyncTask extends AsyncTask {
         String username= (String) params[0];
         String password= (String) params[1];
         boolean newUser= (boolean) params[2];
-        int authenticated=Client.initClient(username,password,newUser);
+        int authenticated= Client.initClient(username,password,newUser);
+
         return authenticated;
     }
 }

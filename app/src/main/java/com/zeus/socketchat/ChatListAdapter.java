@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.zeus.socketchat.DataModels.ChatMsg;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMsg> {
         this.chatMsgArrayList=chatMsgArrayList;
         this.context=context;
     }
-    public static class ChatMsgViewHolder{
+    private static class ChatMsgViewHolder{
         TextView senderTextView;
         TextView msgContentTextView;
         TextView dateTextView;

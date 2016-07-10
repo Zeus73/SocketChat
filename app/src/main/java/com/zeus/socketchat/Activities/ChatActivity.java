@@ -1,4 +1,4 @@
-package com.zeus.socketchat;
+package com.zeus.socketchat.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,22 +6,22 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
+import com.zeus.socketchat.ChatListAdapter;
+import com.zeus.socketchat.Client;
+import com.zeus.socketchat.DataModels.ChatMsg;
+import com.zeus.socketchat.R;
+import com.zeus.socketchat.MyAsyncTasks.SendMsgAsyncTask;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -34,7 +34,7 @@ public class ChatActivity extends AppCompatActivity {
     Button sendMsgButton;
     EditText msgEditText;
     String recipient;
-    Intent receiveMsgIntent;
+
     private MsgReceiver msgReceiver;
 
     @Override
@@ -47,6 +47,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onPause() {
         Client.currentlyChattingWith=null;
         super.onPause();
+
     }
 
     @Override
@@ -97,6 +98,7 @@ public class ChatActivity extends AppCompatActivity {
         msgListView= (ListView) findViewById(R.id.messagesListView);
         chatListAdapter=new ChatListAdapter(ChatActivity.this,chatMsgList);
         msgListView.setAdapter(chatListAdapter);
+        msgListView.setSelection(chatMsgList.size()-1);
 //        arrayAdapter=new ArrayAdapter<String>(ChatActivity.this,
 //                android.R.layout.simple_list_item_1,msgList);
 //        msgListView.setAdapter(arrayAdapter);
@@ -130,7 +132,6 @@ public class ChatActivity extends AppCompatActivity {
                 msg1.save();
             }
         });
-        receiveMsgIntent=new Intent(ChatActivity.this,ChatReceiveIntentService.class);
-        startService(receiveMsgIntent);
+
     }
 }

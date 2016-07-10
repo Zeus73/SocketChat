@@ -3,11 +3,13 @@ package com.zeus.socketchat;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.zeus.socketchat.Activities.ChatActivity;
+import com.zeus.socketchat.Activities.UsersListActivity;
+import com.zeus.socketchat.DataModels.ChatMsg;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.AsynchronousCloseException;
 
 
 /**
@@ -31,16 +33,26 @@ public class ChatReceiveIntentService extends IntentService {
                     Client.clientSocketChannel.read(buf);
                     ChatMsg chatMsg=ChatMsg.deserialize(buf.array());
                     if(chatMsg!=null){
-                        Intent msgRecBroadcastIntent=new Intent();
-                        msgRecBroadcastIntent.setAction(ChatActivity.MsgReceiver.ACTION_RESP);
-                        msgRecBroadcastIntent.putExtra("msg",chatMsg);
-                        sendOrderedBroadcast(msgRecBroadcastIntent,null);
+                        if(chatMsg.msgType!=ChatMsg.LIST_USERS){
+                            Intent msgRecBroadcastIntent=new Intent();
+                            msgRecBroadcastIntent.setAction(ChatActivity.MsgReceiver.ACTION_RESP);
+                            msgRecBroadcastIntent.putExtra("msg",chatMsg);
+                            sendOrderedBroadcast(msgRecBroadcastIntent,null);
+                        }else{
+                            Log.i("Chat receive service",Client.sender+" received");
+//                            Log.i("step1","complete");
+                            Intent usersListBroadcastIntent=new Intent();
+                            usersListBroadcastIntent.setAction(UsersListActivity.UsersListReceiver.USER_LIST_ACTION);
+                            usersListBroadcastIntent.putExtra("userListChatMsg",chatMsg);
+                            sendOrderedBroadcast(usersListBroadcastIntent,null);
+                        }
+
                     }
 
 
                 } catch (IOException e) {
 
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
         }
