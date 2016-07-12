@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/bg1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="3">
         <TextView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:textSize="50sp"
             android:text="SOCKET CHAT"
-            android:textStyle="bold|italic"
-            android:textColor="#e91111" />
+            android:textStyle="bold"
+            android:textColor="#e91111"
+            android:outlineProvider="bounds"
+            android:typeface="serif" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_weight="5">
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

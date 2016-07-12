@@ -60,27 +60,41 @@
         android:layout_alignRight="@+id/passwordEditText"
         android:layout_alignEnd="@+id/passwordEditText" />
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textSize="25sp"
         android:layout_height="wrap_content"
-        android:text="Wifi SSID"
-        android:id="@+id/wifiSsidTv"
-        android:layout_below="@+id/registerNewUser"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp" />
+        ></ScrollView>
 
-    <TextView
-        android:gravity="center"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="25sp"
-        android:id="@+id/hotspotPasswordTv"
-        android:layout_below="@+id/wifiSsidTv"
-        android:layout_alignRight="@+id/registerNewUser"
-        android:layout_alignEnd="@+id/registerNewUser"
-        android:layout_marginTop="54dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:layout_height="wrap_content"
+            android:text="Wifi SSID"
+            android:id="@+id/wifiSsidTv"
+            android:layout_below="@+id/registerNewUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="19sp"
+            android:id="@+id/hotspotPasswordTv"
+            android:layout_below="@+id/wifiSsidTv"
+            android:layout_alignRight="@+id/registerNewUser"
+            android:layout_alignEnd="@+id/registerNewUser"
+            android:layout_marginTop="54dp" />
+    </LinearLayout>
+
 
 </RelativeLayout>
