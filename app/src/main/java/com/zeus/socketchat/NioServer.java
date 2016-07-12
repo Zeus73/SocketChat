@@ -12,6 +12,8 @@ import com.zeus.socketchat.DataModels.UserDetails;
 import java.nio.*;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -152,7 +154,14 @@ public class NioServer {
                 buf.clear();
                 username=msg1.username;
                 if(msg1.isNewUser){
-                    UserDetails curUserDetails=new UserDetails(msg1.username, msg1.password, socketChannel);
+                    UserDetails curUserDetails= null;
+                    try {
+                        curUserDetails = new UserDetails(msg1.username, PasswordHash.createHash(msg1.password), socketChannel);
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (InvalidKeySpecException e) {
+                        e.printStackTrace();
+                    }
                     curUserInfo=curUserDetails;
                     boolean registered=true;
                     for(int i=0;i<users.size();++i){
@@ -188,18 +197,24 @@ public class NioServer {
                 }else{
                     int i;
                     for(i=0;i<users.size();++i){
-                        if((users.get(i).username.equals(msg1.username))&&(users.get(i).password.equals(msg1.password))){
-                            System.out.println("Access granted: "+msg1.username);
-                            curUserInfo=users.get(i);
-//							buf.putInt(USER_VALIDATED);
-                            wrappingBuffer=ByteBuffer.wrap(InitialiseMsg.serialize(new InitialiseMsg("true", null, false)));
-                            while(wrappingBuffer.hasRemaining())
-                                socketChannel.write(wrappingBuffer);
-//                            users.get(i).isOnline=true;
-                            users.get(i).socketChannel=socketChannel;
-                            this.refreshUsersList();
-                            start();
-                            break;
+                        try {
+                            if((users.get(i).username.equals(msg1.username))&&(PasswordHash.validatePassword(msg1.password,users.get(i).password))){
+                                System.out.println("Access granted: "+msg1.username);
+                                curUserInfo=users.get(i);
+    //							buf.putInt(USER_VALIDATED);
+                                wrappingBuffer=ByteBuffer.wrap(InitialiseMsg.serialize(new InitialiseMsg("true", null, false)));
+                                while(wrappingBuffer.hasRemaining())
+                                    socketChannel.write(wrappingBuffer);
+    //                            users.get(i).isOnline=true;
+                                users.get(i).socketChannel=socketChannel;
+                                this.refreshUsersList();
+                                start();
+                                break;
+                            }
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (InvalidKeySpecException e) {
+                            e.printStackTrace();
                         }
                     }
                     if(i==users.size()){

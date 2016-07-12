@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startHotspotButton= (Button) findViewById(R.id.startHostButton);
-        startHotspotButton.setBackgroundColor(getResources().getColor(android.R.color.black));
-        startHotspotButton.setTextColor(getResources().getColor(android.R.color.white));
+//        startHotspotButton.setBackgroundColor(getResources().getColor(android.R.color.black));
+//        startHotspotButton.setTextColor(getResources().getColor(android.R.color.white));
         startClientButton= (Button) findViewById(R.id.startClientButton);
 
         startHotspotButton.setOnClickListener(new View.OnClickListener() {
