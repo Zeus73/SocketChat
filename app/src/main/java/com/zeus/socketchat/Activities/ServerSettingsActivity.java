@@ -42,13 +42,13 @@ public class ServerSettingsActivity extends AppCompatActivity {
         startServerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NioServer.toContinueServer=true;
+
                 stopServerButton.setClickable(true);
                 startServerButton.setClickable(false);
 //                ServerStartAsyncTask serverStartAsyncTask=new ServerStartAsyncTask();
 ////                serverStartAsyncTask.setServerStartedListener(ServerSettingsActivity.this);
 //                serverStartAsyncTask.execute();
-
+                NioServer.toContinueServer=true;
                 startServerIntent=new Intent(ServerSettingsActivity.this,StartServerIntentService.class);
                 startService(startServerIntent);
                 onlineServerIPTV.setText("Server is starting up!");

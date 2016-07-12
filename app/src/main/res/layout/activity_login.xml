@@ -25,10 +25,11 @@
         android:layout_height="wrap_content"
         android:hint="Username"
         android:id="@+id/usernameEditText"
+        android:gravity="center"
         android:layout_below="@+id/welcomeTv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp"
-        android:gravity="center" />
+        android:layout_alignLeft="@+id/passwordEditText"
+        android:layout_alignStart="@+id/passwordEditText"
+        android:layout_marginTop="64dp" />
 
     <EditText
         android:layout_width="250dp"
@@ -47,26 +48,39 @@
         android:text="Login"
         android:id="@+id/loginButton"
         android:layout_below="@+id/passwordEditText"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/welcomeTv"
+        android:layout_toStartOf="@+id/welcomeTv" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/registerNewUser"
-        android:layout_below="@+id/loginButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp" />
+        android:layout_alignTop="@+id/loginButton"
+        android:layout_alignRight="@+id/passwordEditText"
+        android:layout_alignEnd="@+id/passwordEditText" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="25sp"
         android:layout_height="wrap_content"
-        android:text="Change Server IP"
-        android:id="@+id/serverIpChangeButton"
-        android:layout_alignParentBottom="true"
+        android:text="Wifi SSID"
+        android:id="@+id/wifiSsidTv"
+        android:layout_below="@+id/registerNewUser"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp" />
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="25sp"
+        android:id="@+id/hotspotPasswordTv"
+        android:layout_below="@+id/wifiSsidTv"
+        android:layout_alignRight="@+id/registerNewUser"
         android:layout_alignEnd="@+id/registerNewUser"
-        android:layout_marginBottom="79dp"
-        android:layout_alignStart="@+id/registerNewUser" />
+        android:layout_marginTop="54dp" />
 
 </RelativeLayout>

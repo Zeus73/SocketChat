@@ -4,7 +4,10 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:name="com.activeandroid.app.Application"
@@ -21,20 +24,20 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.zeus.socketchat.DataModels.ChatMsg,com.zeus.socketchat.DataModels.OtherUsersInfo,
-            com.zeus.socketchat.DataModels.UserDetails,com.zeus.socketchat.DataModels.PendingServerMsgs" />
+            android:value="com.zeus.socketchat.DataModels.ChatMsg,com.zeus.socketchat.DataModels.OtherUsersInfo,             com.zeus.socketchat.DataModels.MyWifiConfig,com.zeus.socketchat.DataModels.UserDetails,             com.zeus.socketchat.DataModels.PendingServerMsgs" />
 
-        <activity android:name=".Activities.LoginActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Activities.UsersListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.ChatActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.ServerSettingsActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.UsersListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ServerSettingsActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".ChatReceiveIntentService"
@@ -51,7 +54,6 @@
             </intent-filter>
         </receiver>
 
-
         <service
             android:name=".StartServerIntentService"
             android:exported="false" />
@@ -66,6 +68,17 @@
                 <category android:name="Intent.CATEGORY_DEFAULT" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.StartingHostAnimationActivity" />
+        <activity android:name=".Activities.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.ClientWifiActivity"></activity>
     </application>
 
 </manifest>
