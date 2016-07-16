@@ -9,46 +9,27 @@ import android.widget.Button;
 import com.zeus.socketchat.R;
 import com.zeus.socketchat.WifiApManager;
 
+/**
+ * MainActivity is the first screen of the App where the user chooses to continue as a chat host or chat client
+ * The chat host creates a hotspot for other clients to be connected
+ * the Wifi of the the clients is turned on so that they can connect to the host's Wifi
+ */
 public class MainActivity extends AppCompatActivity {
 
     Button startHotspotButton,startClientButton;
-    WifiApManager wifiApManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startHotspotButton= (Button) findViewById(R.id.startHostButton);
-//        startHotspotButton.setBackgroundColor(getResources().getColor(android.R.color.black));
-//        startHotspotButton.setTextColor(getResources().getColor(android.R.color.white));
         startClientButton= (Button) findViewById(R.id.startClientButton);
 
         startHotspotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                WifiManager wifiManager = (WifiManager)
-//                        getSystemService(Context.WIFI_SERVICE);
-//                wifiManager.setWifiEnabled(false);
-//                WifiApControl apControl = WifiApControl.getApControl(wifiManager);
-//                if (apControl != null) {
-
-                    // TURN OFF YOUR WIFI BEFORE ENABLE HOTSPOT
-                    //if (isWifiOn(context) && isTurnToOn) {
-                    //  turnOnOffWifi(context, false);
-                    //}
-
-//                    apControl.setWifiApEnabled(apControl.getWifiApConfiguration(),
-//                            true);
-
-
-                    Intent i=new Intent(MainActivity.this,StartingHostAnimationActivity.class);
-                    startActivity(i);
-
-//                    NioServer.toContinueServer=false;
-//                    apControl.setWifiApEnabled(apControl.getWifiApConfiguration(),
-//                            false);
-//                    finish();
-//                }
+                Intent i=new Intent(MainActivity.this,StartingHostAnimationActivity.class);
+                startActivity(i);
             }
         });
 

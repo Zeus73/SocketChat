@@ -22,7 +22,6 @@ import com.zeus.socketchat.UsersListAdapter;
 
 import java.util.ArrayList;
 
-//public class UsersListActivity extends AppCompatActivity implements UserListAsyncTask.UserListAsyncTaskInterface {
     public class UsersListActivity extends AppCompatActivity {
     UsersListAdapter adapter;
     ListView usersListView;
@@ -70,10 +69,6 @@ import java.util.ArrayList;
         logoutButton= (Button) findViewById(R.id.logoutButton);
         usersListView= (ListView) findViewById(R.id.usersListView);
         usersListView.setAdapter(adapter);
-//        UserListAsyncTask userListAsyncTask=new UserListAsyncTask();
-//        userListAsyncTask.setUserListAsyncTaskListener(UsersListActivity.this);
-//        userListAsyncTask.execute();
-
 
         usersListReceiver=new UsersListReceiver();
         IntentFilter intentFilter=new IntentFilter("com.zeus.socketchat.intent.UPDATE_USER_LIST");

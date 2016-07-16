@@ -17,7 +17,6 @@ public class UserDetails extends Model implements Serializable {
     @Column(name="password")
     public String password;
 
-//    public boolean isOnline;
     public SocketChannel socketChannel;
 
     public UserDetails(){super();}
@@ -26,7 +25,6 @@ public class UserDetails extends Model implements Serializable {
         super();
         this.username=clientLoginName;
         this.password=clientPassword;
-//        this.isOnline=b;
         this.socketChannel=socketChannel;
     }
 

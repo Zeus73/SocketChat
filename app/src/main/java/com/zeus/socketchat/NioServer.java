@@ -54,7 +54,6 @@ public class NioServer {
             System.out.println("The Server failed to start");
         }
 
-//            System.out.println("The Server is Online! at: "+ Inet4Address.getLocalHost().getHostAddress());
 
     }
 
@@ -95,7 +94,6 @@ public class NioServer {
             threadList.clear();
             AcceptClient newClient;
             while(toContinueServer){
-//                System.out.println("running");
                 SocketChannel socketChannel=serverSocketChannel.accept();
                 if(socketChannel!=null){
                     System.out.println("New Client request!");
@@ -117,25 +115,11 @@ public class NioServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        new Delete().from(UserDetails.class).execute();
-//        for(int i=0;i<users.size();++i)
-//            users.get(i).save();
     }
 
 
 
-//    public static void main(String[] args) {
-//        NioServer nioServer=new NioServer();
-//    }
-
-
-
-
     private class AcceptClient extends Thread{
-
-        static final int USER_VALIDATED=0;
-        static final int USER_AUTH_FAILED=1;
-        static final int USERNAME_ALREADY_EXISTS=2;
 
         SocketChannel socketChannel;
         ByteBuffer buf,wrappingBuffer;
@@ -175,9 +159,6 @@ public class NioServer {
                         users.add(curUserDetails);
                         curUserDetails.save();
                         System.out.println("User Registered & Logged In: "+msg1.username);
-
-//						buf.putInt(USER_VALIDATED);
-//						socketChannel.write(buf);
                         wrappingBuffer=ByteBuffer.wrap(InitialiseMsg.serialize(new InitialiseMsg("true", null, true)));
                         while(wrappingBuffer.hasRemaining())
                             socketChannel.write(wrappingBuffer);
@@ -185,8 +166,6 @@ public class NioServer {
 
                         start();
                     }else{
-//						buf.putInt(USERNAME_ALREADY_EXISTS);
-//						socketChannel.write(buf);
                         wrappingBuffer=ByteBuffer.wrap(InitialiseMsg.serialize(new InitialiseMsg("false", null, true)));
                         while(wrappingBuffer.hasRemaining())
                             socketChannel.write(wrappingBuffer);
@@ -201,11 +180,9 @@ public class NioServer {
                             if((users.get(i).username.equals(msg1.username))&&(PasswordHash.validatePassword(msg1.password,users.get(i).password))){
                                 System.out.println("Access granted: "+msg1.username);
                                 curUserInfo=users.get(i);
-    //							buf.putInt(USER_VALIDATED);
                                 wrappingBuffer=ByteBuffer.wrap(InitialiseMsg.serialize(new InitialiseMsg("true", null, false)));
                                 while(wrappingBuffer.hasRemaining())
                                     socketChannel.write(wrappingBuffer);
-    //                            users.get(i).isOnline=true;
                                 users.get(i).socketChannel=socketChannel;
                                 this.refreshUsersList();
                                 start();
@@ -218,9 +195,7 @@ public class NioServer {
                         }
                     }
                     if(i==users.size()){
-                        System.out.println("Invalid Login attempt by "+msg1.username+"\ncode="+USER_AUTH_FAILED);
-//						buf.putInt(USER_AUTH_FAILED);
-//						socketChannel.write(buf);
+                        System.out.println("Invalid Login attempt by "+msg1.username);
                         wrappingBuffer=ByteBuffer.wrap(InitialiseMsg.serialize(new InitialiseMsg("false", null, false)));
                         while(wrappingBuffer.hasRemaining())
                             socketChannel.write(wrappingBuffer);
@@ -236,8 +211,6 @@ public class NioServer {
 
         }
 
-
-
         void refreshUsersList(){
             ArrayList<OtherUsersInfo> usersList=new ArrayList<>();
             for(int i=0;i<users.size();++i){
@@ -248,19 +221,15 @@ public class NioServer {
                 if(users.get(i).isUserOnline()){
                     SocketChannel tempSocketChannel=users.get(i).socketChannel;
                     ChatMsg retMsg=new ChatMsg(null, ChatMsg.LIST_USERS, users.get(i).username, null, null, usersList);
-//                    Log.i("NioServer refresh","User is= "+users.get(i).username);
                     wrappingBuffer=ByteBuffer.wrap(ChatMsg.serialize(retMsg));
 
                     try {
                         while(wrappingBuffer.hasRemaining())
                             tempSocketChannel.write(wrappingBuffer);
-//                        Log.i("NioServer refresh","write complete");
                     } catch (IOException e) {
-//                        users.get(i).isOnline=false;
                         users.get(i).socketChannel=null;
                     }
                 }else{
-//                    users.get(i).isOnline=false;
                     users.get(i).socketChannel=null;
                 }
             }
@@ -319,10 +288,6 @@ public class NioServer {
                                             recipientSocketChannel.write(wrappingBuffer);
 
                                     }else{
-//                                        ChatMsg retMsg=new ChatMsg(new Date(), ChatMsg.USER_OFFLINE, chatMsg.recipient, username, "Requested user is offline", null);
-//                                        wrappingBuffer=ByteBuffer.wrap(ChatMsg.serialize(retMsg));
-//                                        while(wrappingBuffer.hasRemaining())
-//                                            socketChannel.write(wrappingBuffer);
                                         PendingServerMsgs newPendingMsg=new PendingServerMsgs(chatMsg);
                                         newPendingMsg.save();
                                     }
@@ -353,8 +318,6 @@ public class NioServer {
                             for(int i=0;i<users.size();++i){
                                 UserDetails curTraversal=users.get(i);
                                 if(curTraversal.username.equals(username)){
-//                                    curTraversal.isOnline=false;
-//                                    curTraversal.socketChannel.close();
                                     curTraversal.socketChannel=null;
                                     System.out.println("User "+username+" Logged out");
                                     this.refreshUsersList();
@@ -381,15 +344,8 @@ public class NioServer {
                 }
 
             }
-//            for(int i=0;i<users.size();++i){
-//                users.get(i).isOnline=false;
-//                users.get(i).socketChannel=null;
-//            }
 
         } //end of run method
-
-
-
 
     }
 }

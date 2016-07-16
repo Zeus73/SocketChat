@@ -20,7 +20,6 @@ public class Client implements  Serializable {
     public static ByteBuffer buf;
     public static ByteBuffer wrappingBuffer;
     public static final int PORT = 7777;
-//    static String IP = "10.0.2.15";
     public static String IP = "192.168.43.1";
 //    static String IP = "192.168.0.103";
 //    static String IP = "10.0.2.15";
@@ -59,8 +58,6 @@ public class Client implements  Serializable {
                 return 0;
             }
 
-//            Log.i("return value",String.valueOf(yy));
-//            return yy;
             else if(yy.isNewUser){
                 clientSocketChannel.close();
                 return 2;
@@ -87,26 +84,6 @@ public class Client implements  Serializable {
                 friendsList.add(databaseFriendList.get(i));
     }
 
-//    static public ArrayList<String> getUsersList(){
-//        ArrayList<String> ret=new ArrayList<>();
-//
-//        try{
-//
-//            wrappingBuffer=ByteBuffer.wrap(ChatMsg.serialize(new ChatMsg(null,ChatMsg.LIST_USERS,sender,null,null,null)));
-//            while(wrappingBuffer.hasRemaining()){
-//                clientSocketChannel.write(wrappingBuffer);
-//            }
-//
-//            buf.clear();
-//            clientSocketChannel.read(buf);
-//            ChatMsg retMsg=ChatMsg.deserialize(buf.array());
-//            ret=retMsg.usersList;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            Log.i("problem Fetch UserList","connection reset by peer");
-//        }
-//        return ret;
-//    }
     public static void sendChatMsg(ChatMsg msg1){
         wrappingBuffer=ByteBuffer.wrap(ChatMsg.serialize(msg1));
 

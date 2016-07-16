@@ -15,10 +15,12 @@ import java.io.Serializable;
 public class MyWifiConfig  extends Model implements Serializable{
     @Column(name="wifiConfig")
     public WifiConfiguration wifiConfig;
-
+    @Column(name="isWifiOn")
+    public boolean isWifiOn;
     public MyWifiConfig(){super();}
-    public MyWifiConfig(WifiConfiguration wfc){
+    public MyWifiConfig(WifiConfiguration wfc,boolean isWifiOn){
         super();
+        this.isWifiOn=isWifiOn;
         wifiConfig=wfc;
     }
 }

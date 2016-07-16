@@ -89,23 +89,12 @@ public class ChatActivity extends AppCompatActivity {
             for(int j=0;j<databaseList.size();++j)
                 chatMsgList.add(databaseList.get(j));
 
-//        boolean pendingMsg=i.getBooleanExtra("isPending",false);
-//        if(pendingMsg){
-//            String str=i.getStringExtra("pending");
-//            msgList.add(recipient+": "+str);
-//        }
         msgEditText= (EditText) findViewById(R.id.msgToBeSentEditText);
         msgListView= (ListView) findViewById(R.id.messagesListView);
         chatListAdapter=new ChatListAdapter(ChatActivity.this,chatMsgList);
         msgListView.setAdapter(chatListAdapter);
         msgListView.setSelection(chatMsgList.size()-1);
-//        arrayAdapter=new ArrayAdapter<String>(ChatActivity.this,
-//                android.R.layout.simple_list_item_1,msgList);
-//        msgListView.setAdapter(arrayAdapter);
-
         msgReceiver=new MsgReceiver();
-
-
 
         IntentFilter intentFilter=new IntentFilter(MsgReceiver.ACTION_RESP);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -119,8 +108,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String msgToBeSent=msgEditText.getText().toString();
-//                msgList.add("You: "+msgToBeSent);
-//                arrayAdapter.notifyDataSetChanged();
                 msgEditText.setText("");
                 Date date = new Date();
                 ChatMsg msg1=new ChatMsg(date,ChatMsg.CHAT,Client.sender,recipient,msgToBeSent,null);

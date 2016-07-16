@@ -22,12 +22,7 @@ public class NewMsgReceiver extends BroadcastReceiver {
                 setResultData(null);
                 abortBroadcast();
             }else{
-//                Intent i=new Intent(context,ChatActivity.class);
-//                i.putExtra("recipient",msgRec.sender);
-//                i.putExtra("isPending",true);
-//                i.putExtra("pending",msgRec.msgContent);
-//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(i);
+
             }
 
         Intent receiveMsgIntent;

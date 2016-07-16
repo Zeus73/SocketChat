@@ -35,9 +35,6 @@
         <activity
             android:name=".Activities.ChatActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activities.ServerSettingsActivity"
-            android:screenOrientation="portrait" />
 
         <service
             android:name=".ChatReceiveIntentService"
