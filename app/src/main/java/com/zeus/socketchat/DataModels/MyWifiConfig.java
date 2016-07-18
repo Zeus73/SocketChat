@@ -9,6 +9,7 @@ import com.activeandroid.annotation.Table;
 import java.io.Serializable;
 
 /**
+ * class to store the original Wifi Configuration of the user before modifying them
  * Created by Zeus on 7/12/2016.
  */
 @Table(name="MyWifiConfig")

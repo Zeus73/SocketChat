@@ -19,9 +19,12 @@ import com.zeus.socketchat.DataModels.OtherUsersInfo;
 import com.zeus.socketchat.R;
 import com.zeus.socketchat.MyAsyncTasks.SendMsgAsyncTask;
 import com.zeus.socketchat.UsersListAdapter;
-
 import java.util.ArrayList;
 
+/**
+ * The Activity displaying the list of users registered on the host server and their current  online/offline status
+ * @author Aman Chandna
+ */
     public class UsersListActivity extends AppCompatActivity {
     UsersListAdapter adapter;
     ListView usersListView;
@@ -29,6 +32,9 @@ import java.util.ArrayList;
     Button logoutButton;
     UsersListReceiver usersListReceiver;
 
+    /**
+     * Broadcast receiver to update the list of users and their online/offline status.
+     */
     public class UsersListReceiver extends BroadcastReceiver{
 
         public static final String USER_LIST_ACTION="com.zeus.socketchat.intent.UPDATE_USER_LIST";
@@ -47,6 +53,9 @@ import java.util.ArrayList;
         }
     }
 
+    /**
+     * logout the user when he exits this activity
+     */
     @Override
     protected void onDestroy() {
         unregisterReceiver(usersListReceiver);
@@ -101,7 +110,9 @@ import java.util.ArrayList;
         usersListFetchAsyncTask.execute(userListMsg);
     }
 
-
+    /**
+     * This function notifies the server that the current user is logging out of the application
+     */
     private void logoutFunction(){
         ChatMsg msg1=new ChatMsg(null,ChatMsg.LOGOUT,Client.sender,null,null,null);
         SendMsgAsyncTask logoutAsyncTask=new SendMsgAsyncTask();

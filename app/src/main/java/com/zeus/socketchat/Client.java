@@ -1,5 +1,7 @@
 package com.zeus.socketchat;
 
+import android.util.Log;
+
 import com.activeandroid.query.Select;
 import com.zeus.socketchat.DataModels.ChatMsg;
 import com.zeus.socketchat.DataModels.InitialiseMsg;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class to store the SocketChannel and Client details for the user's connection
  * Created by Zeus on 6/4/2016.
  */
 public class Client implements  Serializable {
@@ -29,6 +32,14 @@ public class Client implements  Serializable {
     public static ArrayList<OtherUsersInfo> friendsList=new ArrayList<>();
     public static String sender;
     public static String currentlyChattingWith=null;
+
+    /**
+     * function to initialise the client class members
+     * @param curUsername username of the cient logged in
+     * @param password password of the client logged in
+     * @param newUser the boolean differentiating between new registration or existing user's login
+     * @return the status of register/login attempt
+     */
 
     static public int initClient(String curUsername, String password, boolean newUser) {
         sender = curUsername;
@@ -67,14 +78,14 @@ public class Client implements  Serializable {
 
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-
-            e.printStackTrace();
+            Log.i("Client.java","IoException");
+            return 1; // handle as an Invalid login attempt
         }
-
-        return 1;
     }
 
+    /**
+     * The function to fetch friendlist from database
+     */
     static public void populateFriendListFromDatabase(){
         friendsList.clear();
         List<OtherUsersInfo> databaseFriendList=  new Select().
@@ -92,7 +103,8 @@ public class Client implements  Serializable {
                     while(wrappingBuffer.hasRemaining())
                         clientSocketChannel.write(wrappingBuffer);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.i("Client.java","The current message could not be sent");
+            return;
         }
     }
 

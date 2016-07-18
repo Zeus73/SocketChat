@@ -13,16 +13,17 @@ import java.nio.ByteBuffer;
 
 
 /**
+ * service to listen to the port for new incoming messages and to broadcast
+ * the results for the appropriate broadcast receivers
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions and extra parameters.
  */
 public class ChatReceiveIntentService extends IntentService {
 
     public ChatReceiveIntentService() {
         super("ChatReceiveIntentService");
     }
+
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -40,7 +41,6 @@ public class ChatReceiveIntentService extends IntentService {
                             sendOrderedBroadcast(msgRecBroadcastIntent,null);
                         }else{
                             Log.i("Chat receive service",Client.sender+" received");
-//                            Log.i("step1","complete");
                             Intent usersListBroadcastIntent=new Intent();
                             usersListBroadcastIntent.setAction(UsersListActivity.UsersListReceiver.USER_LIST_ACTION);
                             usersListBroadcastIntent.putExtra("userListChatMsg",chatMsg);
@@ -51,8 +51,7 @@ public class ChatReceiveIntentService extends IntentService {
 
 
                 } catch (IOException e) {
-
-//                    e.printStackTrace();
+                    Log.i("ChatReceiveService","Corrupted message received");
                 }
             }
         }

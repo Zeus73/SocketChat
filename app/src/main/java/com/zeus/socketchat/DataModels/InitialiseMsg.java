@@ -1,5 +1,7 @@
 package com.zeus.socketchat.DataModels;
 
+import android.util.Log;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
+ * Class to construct the Initial Message to be sent to the server to login/register the user
  * Created by Zeus on 6/21/2016.
  */
 public class InitialiseMsg implements Serializable {
@@ -30,10 +33,10 @@ public class InitialiseMsg implements Serializable {
             return bos.toByteArray();
 
         }catch(IOException e){
-            e.printStackTrace();
+            Log.i("InitialiseMsg.java","serialisation error");
+            return null;
         }
 
-        return null;
     }
 
     public static InitialiseMsg deserialize(byte[] byteArray){
@@ -42,11 +45,12 @@ public class InitialiseMsg implements Serializable {
             ObjectInputStream o=new ObjectInputStream(b);
             return (InitialiseMsg) o.readObject();
         }catch(IOException e){
-            e.printStackTrace();
+            Log.i("InitialiseMsg.java","Deserialisation error: IOexception");
+            return null;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.i("InitialiseMsg.java","Deserialisation error: ClassNotFoundException");
+            return null;
         }
-        return null;
 
     }
 }

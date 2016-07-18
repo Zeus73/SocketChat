@@ -25,6 +25,10 @@ import com.zeus.socketchat.R;
 import com.zeus.socketchat.WifiApManager;
 import java.util.List;
 
+/**
+ * It is the activity where a user registers or logins himself/herself into the chat server to access his/her messages.
+ * @author Aman Chandna
+ */
 public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.LoginAsyncTaskInterface {
 
     EditText userNameEditText;
@@ -34,6 +38,10 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
     TextView WifiSsidTv;
     boolean isHost;
 
+    /**
+     * Stop the Host server if online when user exits the app
+     * Restore the previous Wifi configuration for the user, both of hotspot and Wifi Scanner
+     */
     @Override
     public void onBackPressed() {
         NioServer.serverIP=null;
@@ -141,6 +149,10 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
 
     }
 
+    /**
+     * receive the result from the server whether the registration/login attempt was successful
+     * @param authenticated denotes the status of the login/register attempt made by the user
+     */
     @Override
     public void onLoginAttempt(int authenticated) {
 

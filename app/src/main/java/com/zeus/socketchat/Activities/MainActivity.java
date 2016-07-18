@@ -13,6 +13,7 @@ import com.zeus.socketchat.WifiApManager;
  * MainActivity is the first screen of the App where the user chooses to continue as a chat host or chat client
  * The chat host creates a hotspot for other clients to be connected
  * the Wifi of the the clients is turned on so that they can connect to the host's Wifi
+ * @author Aman Chandna
  */
 public class MainActivity extends AppCompatActivity {
 

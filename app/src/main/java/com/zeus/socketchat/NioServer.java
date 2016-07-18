@@ -1,6 +1,8 @@
 package com.zeus.socketchat;
 
 
+import android.util.Log;
+
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.zeus.socketchat.DataModels.ChatMsg;
@@ -23,6 +25,9 @@ import java.util.Vector;
 import java.io.IOException;
 import java.net.*;
 
+/**
+ * The class that store the server details, list of registered users, list of ongoing threads
+ */
 public class NioServer {
     static public String serverIP;
     public Vector<UserDetails> users;
@@ -30,13 +35,15 @@ public class NioServer {
     ArrayList<AcceptClient> threadList;
     ServerSocketChannel serverSocketChannel;
 
+    /**
+     * Constructor to create an instance of the NioServer class
+     */
     public NioServer() {
         users=new Vector();
         List<UserDetails> tempList=new Select().from(UserDetails.class).execute();
         if(tempList!=null)
             for(int i=0;i<tempList.size();++i){
                 UserDetails oldDetails=tempList.get(i);
-//                oldDetails.isOnline=false;
                 oldDetails.socketChannel=null;
                 users.add(oldDetails);
             }
@@ -79,16 +86,18 @@ public class NioServer {
             }
 
         } catch (SocketException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-            ip += "Something Wrong! " + e.toString() + "\n";
-
+            ip += "The required socket was closed unexpectedly! " + e.toString() + "\n";
+            return null;
         }
         return ip;
     }
 
 
-
+    /**
+     * function to initiate the servver to listen to the specified port and
+     * accept incoming client connection requests
+     */
     public void startNioServer(){
         try{
             threadList.clear();
@@ -101,24 +110,24 @@ public class NioServer {
                     threadList.add(newClient);
                 }
             }
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-        for(int i=0;i<threadList.size();++i){
-            AcceptClient curThread=threadList.get(i);
-            curThread.continueCurThread=false;
-        }
-        try {
+            for(int i=0;i<threadList.size();++i){
+                AcceptClient curThread=threadList.get(i);
+                curThread.continueCurThread=false;
+            }
             serverSocketChannel.close();
             serverIP=null;
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        }catch(IOException e){
+            serverSocketChannel=null;
+            serverIP=null;
+            return;
         }
     }
 
 
-
+    /**
+     * class extending thread to listen to a specified SocketChannel client and transferring data to the client
+     */
     private class AcceptClient extends Thread{
 
         SocketChannel socketChannel;
@@ -139,15 +148,17 @@ public class NioServer {
                 username=msg1.username;
                 if(msg1.isNewUser){
                     UserDetails curUserDetails= null;
+                    boolean registered=true;
                     try {
                         curUserDetails = new UserDetails(msg1.username, PasswordHash.createHash(msg1.password), socketChannel);
                     } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
+                        Log.i("NioServer.java","Password hash function not found");
+                        registered=false;
                     } catch (InvalidKeySpecException e) {
-                        e.printStackTrace();
+                        Log.i("NioServer.java","Invalid Password, hash couldn't be created");
+                        registered=false;
                     }
                     curUserInfo=curUserDetails;
-                    boolean registered=true;
                     for(int i=0;i<users.size();++i){
                         if(users.get(i).username.equals(msg1.username)){
                             registered=false;
@@ -189,9 +200,13 @@ public class NioServer {
                                 break;
                             }
                         } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
+                            Log.i("NioServer.java","Password hash function not found");
+                            i=users.size();
+                            break;
                         } catch (InvalidKeySpecException e) {
-                            e.printStackTrace();
+                            Log.i("NioServer.java","Invalid Password, hash couldn't be created");
+                            i=users.size();
+                            break;
                         }
                     }
                     if(i==users.size()){
@@ -206,11 +221,15 @@ public class NioServer {
 
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.i("NioServer.java","a socketchannel was closed unexpectedly");
+                socketChannel=null;
             }
 
         }
 
+        /**
+         * function to notify online users of change in userlist and/or users' online/offline status
+         */
         void refreshUsersList(){
             ArrayList<OtherUsersInfo> usersList=new ArrayList<>();
             for(int i=0;i<users.size();++i){
@@ -235,11 +254,14 @@ public class NioServer {
             }
         }
 
+        /**
+         * handle requests from client and listen to port
+         */
         public void run(){
             try {
                 this.sleep(500,900);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.i("AcceptClient","Thread was woken up prematurely");
             }
 
             List<PendingServerMsgs> sendMsgsList=new Select().from(PendingServerMsgs.class)

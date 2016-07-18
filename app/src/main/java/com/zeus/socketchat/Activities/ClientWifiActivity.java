@@ -21,6 +21,10 @@ import com.zeus.socketchat.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Screen to choose which Host wifi to be connected to by the client
+ * @author Aman Chandna
+ */
 public class ClientWifiActivity extends AppCompatActivity {
 
     ListView lv;
@@ -31,17 +35,26 @@ public class ClientWifiActivity extends AppCompatActivity {
 
     boolean oldWifiState;
 
+    /**
+     * restore the state of User's wifi to it's original condition and finish the activity
+     */
     @Override
     public void onBackPressed() {
         wifi.setWifiEnabled(oldWifiState);
         super.onBackPressed();
     }
 
+    /**
+     * unregister the wifi scanner receiver when the activity goes in background
+     */
     protected void onPause() {
         unregisterReceiver(wifiReciever);
         super.onPause();
     }
 
+    /**
+     * Reregister the wifi scanner receiver when the activity goes in background
+     */
     protected void onResume() {
         registerReceiver(wifiReciever, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
         super.onResume();
@@ -79,6 +92,7 @@ public class ClientWifiActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String pass=dtv.getText().toString();
+                        pass="chat-"+pass;
                         wifiConfiguration.preSharedKey=String.format("\"%s\"", pass);
                         netId=wifi.addNetwork(wifiConfiguration);
                         wifi.disconnect();
@@ -95,7 +109,9 @@ public class ClientWifiActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Broadcast Receiver to notify the apdapter regarding the change in list of available Wifi, if any
+     */
     private class WifiScanReceiver extends BroadcastReceiver {
         public void onReceive(Context c, Intent intent) {
             List<ScanResult> wifiScanList = wifi.getScanResults();

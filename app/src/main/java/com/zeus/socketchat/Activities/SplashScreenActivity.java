@@ -9,6 +9,7 @@ import com.zeus.socketchat.R;
 
 /**
  * This activity displays the splash screen for 2000ms and then launches MainActivity
+ * @author Aman Chandna
  */
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -18,7 +19,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         new Handler().postDelayed(new Runnable() {
-
+            /**
+             * Starts the MainActivity of the application
+             */
             @Override
             public void run() {
                 Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);

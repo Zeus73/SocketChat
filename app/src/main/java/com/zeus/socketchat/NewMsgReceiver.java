@@ -7,6 +7,10 @@ import android.util.Log;
 
 import com.zeus.socketchat.DataModels.ChatMsg;
 
+/**
+ * Broadcast receiver to receive broadcast in case of new incoming chat messages
+ * transmits the broadcast forward if the chat activity with the sender is currently active
+ */
 public class NewMsgReceiver extends BroadcastReceiver {
     public NewMsgReceiver() {
     }
@@ -22,7 +26,8 @@ public class NewMsgReceiver extends BroadcastReceiver {
                 setResultData(null);
                 abortBroadcast();
             }else{
-
+                //transmit the broadcast to a receive of lower priority and
+                // display the message in the chat activity screen
             }
 
         Intent receiveMsgIntent;

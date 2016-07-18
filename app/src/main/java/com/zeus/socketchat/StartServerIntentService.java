@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.content.Context;
 
 /**
+ * Service to start the server on the user's device
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
- * <p/>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
  */
 public class StartServerIntentService extends IntentService {
 
@@ -22,7 +20,6 @@ public class StartServerIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             NioServer nioServer=new NioServer();
-//        serverStartedListener.onServerStarted(nioServer);
             nioServer.startNioServer();
         }
     }

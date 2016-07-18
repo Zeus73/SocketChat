@@ -1,5 +1,7 @@
 package com.zeus.socketchat.DataModels;
 
+import android.util.Log;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -13,6 +15,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+/**
+ * Class to construct the message details for a chat message to be sent from client to server
+ */
 @Table(name="ChatMsg")
 public class ChatMsg extends Model implements Serializable {
 
@@ -64,10 +70,9 @@ public class ChatMsg extends Model implements Serializable {
             return bos.toByteArray();
 
         }catch(IOException e){
-            e.printStackTrace();
+            Log.i("ChatMsg.java","serialisation error");
+            return null;
         }
-
-        return null;
     }
 
     public static ChatMsg deserialize(byte[] byteArray){
@@ -76,11 +81,12 @@ public class ChatMsg extends Model implements Serializable {
             ObjectInputStream o=new ObjectInputStream(b);
             return (ChatMsg) o.readObject();
         }catch(IOException e){
-            e.printStackTrace();
+            Log.i("ChatMsg.java","Deserialisation error: IOexception");
+            return null;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.i("ChatMsg.java","Deserialisation error: ClassNotFoundException");
+            return null;
         }
-        return null;
 
     }
 

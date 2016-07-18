@@ -19,6 +19,15 @@ public class WifiApManager {
         this.context = context;
         mWifiManager = (WifiManager) this.context.getSystemService(Context.WIFI_SERVICE);
     }
+    /**
+     * Start AccessPoint mode with the specified
+     * configuration. If the radio is already running in
+     * AP mode, update the new configuration
+     * Note that starting in access point mode disables station
+     * mode operation
+     * @param wifiConfig SSID, security and channel details as part of WifiConfiguration
+     * @return {@code true} if the operation succeeds, {@code false} otherwise
+     */
     public boolean setWifiApEnabled(WifiConfiguration wifiConfig, boolean enabled) {
         try {
             if (enabled) { // disable WiFi in any case
@@ -32,6 +41,10 @@ public class WifiApManager {
             return false;
         }
     }
+
+    /**
+     * @return the current Wifi Hotspot state of the device
+     */
     public WIFI_AP_STATE getWifiApState() {
         try {
             Method method = mWifiManager.getClass().getMethod("getWifiApState");
@@ -50,10 +63,16 @@ public class WifiApManager {
         }
     }
 
+    /**
+     * @return boolean whose value denotes whether the hotspot is switched ON
+     */
     public boolean isWifiApEnabled() {
         return getWifiApState() == WIFI_AP_STATE.WIFI_AP_STATE_ENABLED;
     }
 
+    /**
+     * @return the current Wiifi configuration of the hotspot
+     */
     public WifiConfiguration getWifiApConfiguration() {
         try {
             Method method = mWifiManager.getClass().getMethod("getWifiApConfiguration");
@@ -64,6 +83,11 @@ public class WifiApManager {
         }
     }
 
+    /**
+     * sets the wificonfiguration for the user device's hotspot
+     * @param wifiConfig the wifi configuration to be set for the device
+     * @return success value of the operation to set the configuration of the wifi hotspot
+     */
     public boolean setWifiApConfiguration(WifiConfiguration wifiConfig) {
         try {
             Method method = mWifiManager.getClass().getMethod("setWifiApConfiguration", WifiConfiguration.class);

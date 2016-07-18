@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Activity which displays the chat interface and the list of previous messages exchanged between the user and the other participant
+ * @author Aman Chandna
+ */
 public class ChatActivity extends AppCompatActivity {
 
 //    Intent sendMsgIntent;
@@ -37,6 +41,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private MsgReceiver msgReceiver;
 
+    /**
+     * Unregister the broadcast receiver when the activity is destroyed
+     */
     @Override
     protected void onDestroy() {
         unregisterReceiver(msgReceiver);
@@ -56,6 +63,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    /**
+     * Broadcast receiver to display new messages received by the user from the other participant
+     */
     public class MsgReceiver extends BroadcastReceiver{
         public static final String ACTION_RESP="com.zeus.socketchat.intent.action.MESSAGE_PROCESSED";
         @Override

@@ -7,6 +7,7 @@ import com.activeandroid.annotation.Table;
 import java.io.Serializable;
 
 /**
+ * Class to store the Client side list of friends registered on server
  * Created by Zeus on 6/30/2016.
  */
 @Table(name="OtherUsersInfo")

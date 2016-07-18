@@ -19,6 +19,10 @@ import com.zeus.socketchat.WifiApManager;
 
 import java.util.List;
 
+/**
+ * Loading screen while the Wifi hotspot is initialised on the user's device
+ * @author Aman Chandna
+ */
 
 public class StartingHostAnimationActivity extends AppCompatActivity implements StartHotspotAsyncTask.StartHotspotAsyncTaskInterface {
 
@@ -43,6 +47,10 @@ public class StartingHostAnimationActivity extends AppCompatActivity implements 
         startHotspotAsyncTask.execute(context);
     }
 
+    /**
+     * function to be executed after the hotspot has been started or the AsyncTask to start the hotspot has finished unsuccessfully
+     * @param curApState Integer to denote the status of the hotspot:Enabled/Disabled
+     */
     @Override
     public void onHotspotStart(WIFI_AP_STATE curApState) {
         if(curApState==WIFI_AP_STATE.WIFI_AP_STATE_ENABLED){

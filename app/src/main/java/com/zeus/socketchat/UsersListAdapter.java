@@ -12,6 +12,7 @@ import com.zeus.socketchat.DataModels.OtherUsersInfo;
 import java.util.ArrayList;
 
 /**
+ * Adapter to fill ListView with the details(name,status) of users registered on the server
  * Created by Zeus on 6/30/2016.
  */
 public class UsersListAdapter extends ArrayAdapter<OtherUsersInfo> {
@@ -24,6 +25,10 @@ public class UsersListAdapter extends ArrayAdapter<OtherUsersInfo> {
         this.context=context;
         this.friendsList=objects;
     }
+
+    /**
+     * ViewHolder to store the TextView for username and ImageView to denote user's status
+     */
     private static class ViewHolder{
         TextView friendUsername;
         ImageView friendOnline;

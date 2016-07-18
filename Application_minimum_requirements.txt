@@ -1,0 +1,7 @@
+Software Specifications-
+Mobile Device running OS Android IceCreamSandwich(4.0.1) or higher(upto Marshmallow).
+Hardware Specifications:
+*Minimum Ram: 512 MB
+*Minimum Storage Space- 8MB
+*Requires Wifi or Android Portable Hotspot functionality
+*No internet connection required

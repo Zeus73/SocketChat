@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * Class to store the messages intended to be received by the users who are currently offline
  * Created by Zeus on 7/2/2016.
  */
 @Table(name="PendingServerMsgs")
@@ -40,6 +41,9 @@ public class PendingServerMsgs extends Model implements Serializable {
     public int msgType;
     public ArrayList<OtherUsersInfo> usersList;
 
+    /**
+     * @return ChatMsg object converted from the given stored message object
+     */
     public ChatMsg getChatMsg(){
         ChatMsg msg1=new ChatMsg(date,msgType,sender,recipient,msgContent,usersList);
         return msg1;

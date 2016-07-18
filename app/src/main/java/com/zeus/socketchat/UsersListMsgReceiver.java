@@ -10,6 +10,10 @@ import com.zeus.socketchat.DataModels.OtherUsersInfo;
 
 import java.util.ArrayList;
 
+/**
+ * Broadcast receiver to receive the latest update on list of users registered
+ * on the server and their online/offline status
+ */
 public class UsersListMsgReceiver extends BroadcastReceiver {
     public UsersListMsgReceiver() {
     }
