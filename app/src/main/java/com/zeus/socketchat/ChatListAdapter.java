@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zeus.socketchat.DataModels.ChatMsg;
@@ -26,6 +27,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatMsg> {
         this.context=context;
     }
     private static class ChatMsgViewHolder{
+        LinearLayout msgOutline;
         TextView senderTextView;
         TextView msgContentTextView;
         TextView dateTextView;
@@ -36,19 +38,25 @@ public class ChatListAdapter extends ArrayAdapter<ChatMsg> {
         if(convertView==null){
             convertView=View.inflate(context,R.layout.chat_item_layout,null);
             ChatMsgViewHolder vh=new ChatMsgViewHolder();
+            vh.msgOutline=(LinearLayout) convertView.findViewById(R.id.chatMsgOutline);
             vh.dateTextView=(TextView) convertView.findViewById(R.id.DateTextView);
             vh.msgContentTextView= (TextView) convertView.findViewById(R.id.MsgContentTextView);
             vh.senderTextView=(TextView) convertView.findViewById(R.id.SenderTextView);
-
             convertView.setTag(vh);
         }
         ChatMsgViewHolder vh=(ChatMsgViewHolder)
                 convertView.getTag();
         ChatMsg curMsg=chatMsgArrayList.get(position);
-        if(curMsg.sender.equals(Client.sender))
+        if(curMsg.sender.equals(Client.sender)){
             vh.senderTextView.setText("You :");
-        else
+            vh.msgOutline.setBackgroundResource(R.drawable.bubble_a);
+        }
+
+        else{
             vh.senderTextView.setText(curMsg.sender+" :");
+            vh.msgOutline.setBackgroundResource(R.drawable.bubble_b);
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("'at' HH:mm 'on' dd/MM/yyyy", Locale.US);
 
         vh.dateTextView.setText(dateFormat.format(curMsg.date));

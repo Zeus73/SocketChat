@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/chatMsgOutline"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="5dip"
+    android:background="@drawable/bubble_b"
+    android:paddingLeft="10dip">
     <!--android:minHeight="?android:attr/listPreferredItemHeight">-->
     <TextView
         android:layout_width="wrap_content"
@@ -10,7 +18,7 @@
         android:textSize="25dp"
         android:id="@+id/SenderTextView"/>
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="21dp"
         android:id="@+id/MsgContentTextView"/>
@@ -21,3 +29,4 @@
         android:textSize="20dp"
         android:id="@+id/DateTextView"/>
 </LinearLayout>
+    </LinearLayout>
