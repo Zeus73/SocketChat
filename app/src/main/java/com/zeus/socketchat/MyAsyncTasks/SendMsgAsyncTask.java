@@ -1,10 +1,10 @@
-package com.zeus.socketchat.MyAsyncTasks;
+package com.zeus.socketchat.myAsyncTasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.zeus.socketchat.Client;
-import com.zeus.socketchat.DataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.ChatMsg;
 
 import java.io.IOException;
 

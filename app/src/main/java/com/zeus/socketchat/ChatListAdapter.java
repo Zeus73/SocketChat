@@ -1,13 +1,14 @@
 package com.zeus.socketchat;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zeus.socketchat.DataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.ChatMsg;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,11 +49,15 @@ public class ChatListAdapter extends ArrayAdapter<ChatMsg> {
                 convertView.getTag();
         ChatMsg curMsg=chatMsgArrayList.get(position);
         if(curMsg.sender.equals(Client.sender)){
+            LinearLayout chatItemContainer= (LinearLayout) convertView.findViewById(R.id.chatItemContainer);
+            chatItemContainer.setGravity(Gravity.END);
             vh.senderTextView.setText("You :");
             vh.msgOutline.setBackgroundResource(R.drawable.bubble_a);
         }
 
         else{
+            LinearLayout chatItemContainer= (LinearLayout) convertView.findViewById(R.id.chatItemContainer);
+            chatItemContainer.setGravity(Gravity.START);
             vh.senderTextView.setText(curMsg.sender+" :");
             vh.msgOutline.setBackgroundResource(R.drawable.bubble_b);
         }

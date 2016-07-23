@@ -1,4 +1,4 @@
-package com.zeus.socketchat.DataModels;
+package com.zeus.socketchat.dataModels;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

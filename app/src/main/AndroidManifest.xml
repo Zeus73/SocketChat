@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
+        android:largeHeap="true"
         android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
         android:icon="@mipmap/logo1"
@@ -24,16 +25,18 @@
             android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.zeus.socketchat.DataModels.ChatMsg,com.zeus.socketchat.DataModels.OtherUsersInfo,             com.zeus.socketchat.DataModels.MyWifiConfig,com.zeus.socketchat.DataModels.UserDetails,             com.zeus.socketchat.DataModels.PendingServerMsgs" />
+            android:value="com.zeus.socketchat.dataModels.ChatMsg,com.zeus.socketchat.dataModels.OtherUsersInfo,
+            com.zeus.socketchat.dataModels.MyWifiConfig,com.zeus.socketchat.dataModels.UserDetails,
+            com.zeus.socketchat.dataModels.PendingServerMsgs" />
 
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.UsersListActivity"
+            android:name=".activities.UsersListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.ChatActivity"
+            android:name=".activities.ChatActivity"
             android:screenOrientation="portrait" />
 
         <service
@@ -66,16 +69,16 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.StartingHostAnimationActivity" />
-        <activity android:name=".Activities.SplashScreenActivity">
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.StartingHostAnimationActivity" />
+        <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ClientWifiActivity"></activity>
+        <activity android:name=".activities.ClientWifiActivity"></activity>
     </application>
 
 </manifest>

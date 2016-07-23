@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.zeus.socketchat.DataModels.ChatMsg;
-import com.zeus.socketchat.DataModels.OtherUsersInfo;
+import com.zeus.socketchat.dataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.OtherUsersInfo;
 
 import java.util.ArrayList;
 

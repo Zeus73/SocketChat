@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.zeus.socketchat.DataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.ChatMsg;
 
 /**
  * Broadcast receiver to receive broadcast in case of new incoming chat messages

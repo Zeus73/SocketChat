@@ -1,4 +1,4 @@
-package com.zeus.socketchat.Activities;
+package com.zeus.socketchat.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.zeus.socketchat.DataModels.MyWifiConfig;
-import com.zeus.socketchat.MyAsyncTasks.StartHotspotAsyncTask;
+import com.zeus.socketchat.dataModels.MyWifiConfig;
+import com.zeus.socketchat.myAsyncTasks.StartHotspotAsyncTask;
 import com.zeus.socketchat.NioServer;
 import com.zeus.socketchat.R;
 import com.zeus.socketchat.StartServerIntentService;

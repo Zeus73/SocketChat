@@ -1,4 +1,4 @@
-package com.zeus.socketchat.Activities;
+package com.zeus.socketchat.activities;
 
 import android.content.Intent;
 import android.os.Handler;

@@ -3,9 +3,9 @@ package com.zeus.socketchat;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
-import com.zeus.socketchat.DataModels.ChatMsg;
-import com.zeus.socketchat.DataModels.InitialiseMsg;
-import com.zeus.socketchat.DataModels.OtherUsersInfo;
+import com.zeus.socketchat.dataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.InitialiseMsg;
+import com.zeus.socketchat.dataModels.OtherUsersInfo;
 
 import java.net.*;
 import java.io.*;

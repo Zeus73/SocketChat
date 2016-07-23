@@ -1,4 +1,4 @@
-package com.zeus.socketchat.Activities;
+package com.zeus.socketchat.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.activeandroid.query.Select;
 import com.zeus.socketchat.ChatListAdapter;
 import com.zeus.socketchat.Client;
-import com.zeus.socketchat.DataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.ChatMsg;
 import com.zeus.socketchat.R;
-import com.zeus.socketchat.MyAsyncTasks.SendMsgAsyncTask;
+import com.zeus.socketchat.myAsyncTasks.SendMsgAsyncTask;
 
 import java.util.ArrayList;
 import java.util.Date;

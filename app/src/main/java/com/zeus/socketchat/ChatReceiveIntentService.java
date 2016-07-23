@@ -4,9 +4,9 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import com.zeus.socketchat.Activities.ChatActivity;
-import com.zeus.socketchat.Activities.UsersListActivity;
-import com.zeus.socketchat.DataModels.ChatMsg;
+import com.zeus.socketchat.activities.ChatActivity;
+import com.zeus.socketchat.activities.UsersListActivity;
+import com.zeus.socketchat.dataModels.ChatMsg;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

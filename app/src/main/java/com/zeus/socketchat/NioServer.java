@@ -5,11 +5,11 @@ import android.util.Log;
 
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.zeus.socketchat.DataModels.ChatMsg;
-import com.zeus.socketchat.DataModels.InitialiseMsg;
-import com.zeus.socketchat.DataModels.OtherUsersInfo;
-import com.zeus.socketchat.DataModels.PendingServerMsgs;
-import com.zeus.socketchat.DataModels.UserDetails;
+import com.zeus.socketchat.dataModels.ChatMsg;
+import com.zeus.socketchat.dataModels.InitialiseMsg;
+import com.zeus.socketchat.dataModels.OtherUsersInfo;
+import com.zeus.socketchat.dataModels.PendingServerMsgs;
+import com.zeus.socketchat.dataModels.UserDetails;
 
 import java.nio.*;
 import java.nio.channels.ServerSocketChannel;

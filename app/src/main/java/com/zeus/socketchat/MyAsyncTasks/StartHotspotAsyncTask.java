@@ -1,13 +1,9 @@
-package com.zeus.socketchat.MyAsyncTasks;
+package com.zeus.socketchat.myAsyncTasks;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.os.AsyncTask;
-import android.os.Handler;
 
-import com.zeus.socketchat.Activities.MainActivity;
-import com.zeus.socketchat.Activities.SplashScreenActivity;
 import com.zeus.socketchat.WIFI_AP_STATE;
 import com.zeus.socketchat.WifiApManager;
 

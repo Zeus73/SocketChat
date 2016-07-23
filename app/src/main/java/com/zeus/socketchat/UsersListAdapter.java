@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zeus.socketchat.DataModels.OtherUsersInfo;
+import com.zeus.socketchat.dataModels.OtherUsersInfo;
 
 import java.util.ArrayList;
 

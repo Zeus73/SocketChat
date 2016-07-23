@@ -1,4 +1,4 @@
-package com.zeus.socketchat.MyAsyncTasks;
+package com.zeus.socketchat.myAsyncTasks;
 
 import android.os.AsyncTask;
 

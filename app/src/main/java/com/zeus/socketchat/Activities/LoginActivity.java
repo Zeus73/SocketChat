@@ -1,8 +1,9 @@
-package com.zeus.socketchat.Activities;
+package com.zeus.socketchat.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +18,13 @@ import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.zeus.socketchat.ChatReceiveIntentService;
 import com.zeus.socketchat.Client;
-import com.zeus.socketchat.DataModels.MyWifiConfig;
-import com.zeus.socketchat.DataModels.OtherUsersInfo;
-import com.zeus.socketchat.MyAsyncTasks.LoginAsyncTask;
+import com.zeus.socketchat.dataModels.MyWifiConfig;
+import com.zeus.socketchat.dataModels.OtherUsersInfo;
+import com.zeus.socketchat.myAsyncTasks.LoginAsyncTask;
 import com.zeus.socketchat.NioServer;
 import com.zeus.socketchat.R;
 import com.zeus.socketchat.WifiApManager;
+
 import java.util.List;
 
 /**
@@ -72,8 +74,6 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
         super.onBackPressed();
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -86,11 +86,18 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
         WifiSsidTv= (TextView) findViewById(R.id.wifiSsidTv);
 
         if(isHost){
+            WifiSsidTv.setBackgroundColor(Color.GREEN);
+            WifiSsidTv.setTextColor(Color.BLACK);
             WifiApManager wifiApManager=new WifiApManager(LoginActivity.this);
             WifiSsidTv.setText("HOTSPOT: "+wifiApManager.getWifiApConfiguration().SSID);
             TextView hotspotPasswordtv= (TextView) findViewById(R.id.hotspotPasswordTv);
+            hotspotPasswordtv.setBackgroundColor(Color.BLACK);
+            hotspotPasswordtv.setTextColor(Color.WHITE);
             hotspotPasswordtv.setText("PASSWORD: "+wifiApManager.getWifiApConfiguration().preSharedKey);
         }else{
+//            int netId=getIntent().getIntExtra("connect",0);
+            WifiSsidTv.setBackgroundColor(Color.GREEN);
+            WifiSsidTv.setTextColor(Color.BLACK);
             WifiManager wifiManager= (WifiManager) getSystemService(Context.WIFI_SERVICE);
             WifiSsidTv.setText("WIFI: "+wifiManager.getConnectionInfo().getSSID());
         }
@@ -167,10 +174,8 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
             }else{
                 Client.populateFriendListFromDatabase();
             }
-
             {
                 receiveMsgIntent=new Intent(getApplication(),ChatReceiveIntentService.class);
-
                 startService(receiveMsgIntent);
             }
             startActivity(showUsersIntent);
