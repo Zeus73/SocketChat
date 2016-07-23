@@ -15,11 +15,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome"
+        android:text="Hey!"
         android:id="@+id/welcomeTv"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:typeface="serif"
+        android:textStyle="bold|italic" />
 
     <EditText
         android:layout_width="250dp"
@@ -29,8 +31,7 @@
         android:gravity="center"
         android:layout_below="@+id/welcomeTv"
         android:layout_alignLeft="@+id/passwordEditText"
-        android:layout_alignStart="@+id/passwordEditText"
-        android:layout_marginTop="64dp" />
+        android:layout_alignStart="@+id/passwordEditText" />
 
     <EditText
         android:layout_width="250dp"
@@ -48,9 +49,10 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/loginButton"
+        android:layout_marginTop="47dp"
         android:layout_below="@+id/passwordEditText"
-        android:layout_toLeftOf="@+id/welcomeTv"
-        android:layout_toStartOf="@+id/welcomeTv" />
+        android:layout_alignLeft="@+id/passwordEditText"
+        android:layout_alignStart="@+id/passwordEditText" />
 
     <Button
         android:layout_width="wrap_content"
@@ -64,39 +66,65 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ></ScrollView>
-
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
         android:layout_below="@+id/loginButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="19sp"
-            android:layout_height="wrap_content"
-            android:text="Wifi SSID"
-            android:id="@+id/wifiSsidTv"
-            android:layout_below="@+id/registerNewUser"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="45dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/loginButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="19sp"
+                android:layout_height="wrap_content"
+                android:text="Wifi SSID"
+                android:id="@+id/wifiSsidTv"
+                android:layout_below="@+id/registerNewUser"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp" />
 
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="19sp"
-            android:id="@+id/hotspotPasswordTv"
-            android:layout_below="@+id/wifiSsidTv"
-            android:layout_alignRight="@+id/registerNewUser"
-            android:layout_alignEnd="@+id/registerNewUser"
-            android:layout_marginTop="54dp" />
-    </LinearLayout>
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="19sp"
+                android:id="@+id/hotspotPasswordTv"
+                android:layout_below="@+id/wifiSsidTv"
+                android:layout_alignRight="@+id/registerNewUser"
+                android:layout_alignEnd="@+id/registerNewUser"
+                android:layout_marginTop="54dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="New User?"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/registerNewUser"
+        android:layout_alignRight="@+id/registerNewUser"
+        android:layout_alignEnd="@+id/registerNewUser" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Already Registered?"
+        android:id="@+id/textView"
+        android:layout_above="@+id/registerNewUser"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignStart="@+id/loginButton"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_toLeftOf="@+id/welcomeTv"
+        android:layout_toStartOf="@+id/welcomeTv" />
 
 
 </RelativeLayout>

@@ -95,10 +95,11 @@ public class LoginActivity extends AppCompatActivity implements LoginAsyncTask.L
             hotspotPasswordtv.setTextColor(Color.WHITE);
             hotspotPasswordtv.setText("PASSWORD: "+wifiApManager.getWifiApConfiguration().preSharedKey);
         }else{
-//            int netId=getIntent().getIntExtra("connect",0);
+            int netId=getIntent().getIntExtra("connect",0);
             WifiSsidTv.setBackgroundColor(Color.GREEN);
             WifiSsidTv.setTextColor(Color.BLACK);
             WifiManager wifiManager= (WifiManager) getSystemService(Context.WIFI_SERVICE);
+
             WifiSsidTv.setText("WIFI: "+wifiManager.getConnectionInfo().getSSID());
         }
 

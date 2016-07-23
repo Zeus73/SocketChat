@@ -32,8 +32,10 @@ public class WifiConnectAsyncTask extends AsyncTask {
     }
 
     WifiManager wifi;
+    WifiConfiguration wc;
     @Override
     protected Object doInBackground(Object[] params) {
+
         boolean state=false;
         Context context= (Context) params[0];
         String trgt= (String) params[1];
@@ -42,10 +44,11 @@ public class WifiConnectAsyncTask extends AsyncTask {
         for( WifiConfiguration i : list ) {
             if(i.SSID != null && i.SSID.equals("\"" + trgt + "\"")) {
                 state=wifi.enableNetwork(i.networkId, true);
+                wc=i;
             }else{
                 wifi.disableNetwork(i.networkId);
             }
-            wifi.reconnect();
+//            wifi.reconnect();
         }
 
 
@@ -69,6 +72,9 @@ public class WifiConnectAsyncTask extends AsyncTask {
 
         if(curff.getSSID().equals("\"" + trgt + "\"")&&state&&(stg== NetworkInfo.DetailedState.CONNECTED||
                 stg== NetworkInfo.DetailedState.OBTAINING_IPADDR)){
+            wifi.disconnect();
+            wifi.enableNetwork(wc.networkId,true);
+            wifi.reconnect();
             Log.i("Wifi MY","coneected? true");
             return true;
         }
