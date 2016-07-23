@@ -66,10 +66,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
-        android:layout_below="@+id/loginButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignParentBottom="true">
         <LinearLayout
             android:gravity="center"
             android:orientation="vertical"
@@ -119,12 +119,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Already Registered?"
         android:id="@+id/textView"
-        android:layout_above="@+id/registerNewUser"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignStart="@+id/loginButton"
-        android:layout_below="@+id/passwordEditText"
-        android:layout_toLeftOf="@+id/welcomeTv"
-        android:layout_toStartOf="@+id/welcomeTv" />
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
