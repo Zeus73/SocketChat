@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Client implements  Serializable {
     public static SocketChannel clientSocketChannel;
-    public static ByteBuffer buf;
-    public static ByteBuffer wrappingBuffer;
+    private static ByteBuffer buf;
+    private static ByteBuffer wrappingBuffer;
     public static final int PORT = 7777;
     public static String IP = "192.168.43.1";
 //    static String IP = "192.168.0.103";

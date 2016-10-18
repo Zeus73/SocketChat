@@ -26,7 +26,7 @@ public class LoginAsyncTask extends AsyncTask {
     }
 
     /**
-     * FUnction to initialise the listener object with the Context object of the calling activity
+     * Function to initialise the listener object with the Context object of the calling activity
      * @param listener the context of activity implementing LoginAsyncTaskInterface
      */
     public void SetLoginAsynctaskListener(LoginAsyncTaskInterface listener){
